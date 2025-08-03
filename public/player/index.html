@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectrum - Player</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><® Spectrum</h1>
+        
+        <!-- Join Game Screen -->
+        <div id="join-screen">
+            <h2>Join Game</h2>
+            <p>Enter the game code to join your friends</p>
+            
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="game-code-input" 
+                    placeholder="Game Code" 
+                    maxlength="6"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="player-name-input" 
+                    placeholder="Your Name" 
+                    maxlength="20"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <button id="join-game-btn">Join Game</button>
+        </div>
+
+        <!-- Game Lobby Screen -->
+        <div id="lobby-screen" class="hidden">
+            <h2>Waiting for Game</h2>
+            <div class="game-code" id="joined-game-code"></div>
+            
+            <div class="status waiting">
+                <span id="player-count">0</span> players connected
+            </div>
+
+            <div class="players-list">
+                <h3>Players in Game:</h3>
+                <div id="players-container">
+                    <p style="opacity: 0.7;">Loading players...</p>
+                </div>
+            </div>
+
+            <div class="status waiting">
+                Waiting for host to start the game...
+            </div>
+
+            <button id="leave-game-btn">Leave Game</button>
+        </div>
+
+        <div id="status-message" class="status hidden"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        const joinScreen = document.getElementById('join-screen');
+        const lobbyScreen = document.getElementById('lobby-screen');
+        const gameCodeInput = document.getElementById('game-code-input');
+        const playerNameInput = document.getElementById('player-name-input');
+        const joinGameBtn = document.getElementById('join-game-btn');
+        const leaveGameBtn = document.getElementById('leave-game-btn');
+        const joinedGameCodeEl = document.getElementById('joined-game-code');
+        const playersContainer = document.getElementById('players-container');
+        const playerCountEl = document.getElementById('player-count');
+        const statusMessage = document.getElementById('status-message');
+
+        let currentGame = null;
+
+        function showStatus(message, type = 'success') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.classList.remove('hidden');
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 3000);
+        }
+
+        function updatePlayersList(players) {
+            if (players.length === 0) {
+                playersContainer.innerHTML = '<p style="opacity: 0.7;">No players yet...</p>';
+            } else {
+                playersContainer.innerHTML = players.map(player => 
+                    `<div class="player">${player.name}</div>`
+                ).join('');
+            }
+            
+            playerCountEl.textContent = players.length;
+        }
+
+        // Auto-uppercase game code input
+        gameCodeInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
+        });
+
+        // Join game on Enter key
+        [gameCodeInput, playerNameInput].forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    joinGame();
+                }
+            });
+        });
+
+        function joinGame() {
+            const gameCode = gameCodeInput.value.trim();
+            const playerName = playerNameInput.value.trim();
+
+            if (!gameCode || gameCode.length < 3) {
+                showStatus('Please enter a valid game code', 'error');
+                return;
+            }
+
+            if (!playerName || playerName.length < 1) {
+                showStatus('Please enter your name', 'error');
+                return;
+            }
+
+            joinGameBtn.disabled = true;
+            joinGameBtn.textContent = 'Joining...';
+
+            socket.emit('join-game', { gameCode, playerName }, (response) => {
+                joinGameBtn.disabled = false;
+                joinGameBtn.textContent = 'Join Game';
+
+                if (response.success) {
+                    currentGame = response.game;
+                    joinedGameCodeEl.textContent = gameCode;
+                    joinScreen.classList.add('hidden');
+                    lobbyScreen.classList.remove('hidden');
+                    updatePlayersList(response.game.players);
+                    showStatus('Successfully joined the game!');
+                } else {
+                    showStatus(response.error, 'error');
+                }
+            });
+        }
+
+        joinGameBtn.addEventListener('click', joinGame);
+
+        leaveGameBtn.addEventListener('click', () => {
+            socket.disconnect();
+            socket.connect();
+            lobbyScreen.classList.add('hidden');
+            joinScreen.classList.remove('hidden');
+            gameCodeInput.value = '';
+            playerNameInput.value = '';
+            currentGame = null;
+            showStatus('Left the game', 'waiting');
+        });
+
+        socket.on('player-joined', (data) => {
+            if (currentGame) {
+                updatePlayersList(data.players);
+                showStatus(`${data.playerName} joined!`);
+            }
+        });
+
+        socket.on('player-left', (data) => {
+            if (currentGame) {
+                updatePlayersList(data.players);
+                showStatus('A player left the game', 'waiting');
+            }
+        });
+
+        // Handle host disconnection
+        socket.on('disconnect', () => {
+            if (currentGame) {
+                showStatus('Connection lost. Please rejoin.', 'error');
+                setTimeout(() => {
+                    lobbyScreen.classList.add('hidden');
+                    joinScreen.classList.remove('hidden');
+                    currentGame = null;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

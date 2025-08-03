@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectrum - Host</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><® Spectrum</h1>
+        
+        <!-- Game Creation Screen -->
+        <div id="create-screen">
+            <h2>Host a Game</h2>
+            <p>Create a new game session for your friends to join</p>
+            <button id="create-game-btn">Create Game</button>
+        </div>
+
+        <!-- Game Lobby Screen -->
+        <div id="lobby-screen" class="hidden">
+            <h2>Game Lobby</h2>
+            <div class="game-code" id="game-code"></div>
+            <p>Share this code with your friends to join!</p>
+            
+            <div class="status waiting">
+                <span id="player-count">0</span> players connected
+            </div>
+
+            <div class="players-list">
+                <h3>Players:</h3>
+                <div id="players-container">
+                    <p style="opacity: 0.7;">Waiting for players to join...</p>
+                </div>
+            </div>
+
+            <button id="start-game-btn" disabled>Start Game</button>
+            <button id="new-game-btn">Create New Game</button>
+        </div>
+
+        <div id="status-message" class="status hidden"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        const createScreen = document.getElementById('create-screen');
+        const lobbyScreen = document.getElementById('lobby-screen');
+        const createGameBtn = document.getElementById('create-game-btn');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const newGameBtn = document.getElementById('new-game-btn');
+        const gameCodeEl = document.getElementById('game-code');
+        const playersContainer = document.getElementById('players-container');
+        const playerCountEl = document.getElementById('player-count');
+        const statusMessage = document.getElementById('status-message');
+
+        let currentGame = null;
+
+        function showStatus(message, type = 'success') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.classList.remove('hidden');
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 3000);
+        }
+
+        function updatePlayersList(players) {
+            if (players.length === 0) {
+                playersContainer.innerHTML = '<p style="opacity: 0.7;">Waiting for players to join...</p>';
+            } else {
+                playersContainer.innerHTML = players.map(player => 
+                    `<div class="player">${player.name}</div>`
+                ).join('');
+            }
+            
+            playerCountEl.textContent = players.length;
+            startGameBtn.disabled = players.length < 2;
+        }
+
+        createGameBtn.addEventListener('click', () => {
+            createGameBtn.disabled = true;
+            socket.emit('create-game', (response) => {
+                createGameBtn.disabled = false;
+                if (response.success) {
+                    currentGame = { code: response.gameCode, players: [] };
+                    gameCodeEl.textContent = response.gameCode;
+                    createScreen.classList.add('hidden');
+                    lobbyScreen.classList.remove('hidden');
+                    updatePlayersList([]);
+                    showStatus('Game created successfully!');
+                } else {
+                    showStatus('Failed to create game', 'error');
+                }
+            });
+        });
+
+        newGameBtn.addEventListener('click', () => {
+            lobbyScreen.classList.add('hidden');
+            createScreen.classList.remove('hidden');
+            currentGame = null;
+        });
+
+        startGameBtn.addEventListener('click', () => {
+            showStatus('Game starting feature coming soon!', 'waiting');
+        });
+
+        socket.on('player-joined', (data) => {
+            if (currentGame) {
+                currentGame.players = data.players;
+                updatePlayersList(data.players);
+                showStatus(`${data.playerName} joined the game!`);
+            }
+        });
+
+        socket.on('player-left', (data) => {
+            if (currentGame) {
+                currentGame.players = data.players;
+                updatePlayersList(data.players);
+                showStatus('A player left the game', 'waiting');
+            }
+        });
+    </script>
+</body>
+</html>

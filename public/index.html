@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectrum - Multiplayer Ranking Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Spectrum</h1>
+        <h2>Choose Your Adventure</h2>
+        
+        <!-- Home Screen - Choose Host or Join -->
+        <div id="home-screen">
+            <p>Rank your friends on hilarious personality spectrums!</p>
+            
+            <div class="choice-buttons">
+                <button id="host-game-btn" class="choice-btn">
+                    <div class="choice-icon">🎯</div>
+                    <div class="choice-title">Host Game</div>
+                    <div class="choice-desc">Create a new game room</div>
+                </button>
+                
+                <button id="join-game-btn" class="choice-btn">
+                    <div class="choice-icon">📱</div>
+                    <div class="choice-title">Join Game</div>
+                    <div class="choice-desc">Enter a room code</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Host Game Flow -->
+        <div id="host-flow" class="hidden">
+            <!-- Game Creation Screen -->
+            <div id="create-screen">
+                <h2>Host a Game</h2>
+                <p>Enter your name and create a new game session</p>
+                
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="host-name-input" 
+                        placeholder="Your Name" 
+                        maxlength="20"
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <button id="create-game-btn">Create Game</button>
+                <button id="back-to-home-btn" class="secondary-btn">Back</button>
+            </div>
+
+            <!-- Game Lobby Screen -->
+            <div id="lobby-screen" class="hidden">
+                <h2>Game Lobby</h2>
+                <div class="game-code" id="game-code"></div>
+                <p>Share this code with your friends to join!</p>
+                
+                <div class="status waiting">
+                    <span id="player-count">0</span> players connected
+                </div>
+
+                <div class="players-list">
+                    <h3>Players:</h3>
+                    <div id="players-container">
+                        <p style="opacity: 0.7;">Waiting for players to join...</p>
+                    </div>
+                </div>
+
+                <button id="start-game-btn" disabled>Start Game</button>
+                <button id="new-game-btn" class="secondary-btn">Create New Game</button>
+            </div>
+        </div>
+
+        <!-- Join Game Flow -->
+        <div id="join-flow" class="hidden">
+            <h2>Join Game</h2>
+            <p>Enter the game code to join your friends</p>
+            
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="game-code-input" 
+                    placeholder="Game Code" 
+                    maxlength="6"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="player-name-input" 
+                    placeholder="Your Name" 
+                    maxlength="20"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <button id="join-game-submit-btn">Join Game</button>
+            <button id="back-to-home-from-join-btn" class="secondary-btn">Back</button>
+
+            <!-- Player Lobby Screen -->
+            <div id="player-lobby-screen" class="hidden">
+                <h2>Waiting for Game</h2>
+                <div class="game-code" id="joined-game-code"></div>
+                
+                <div class="status waiting">
+                    <span id="player-count-join">0</span> players connected
+                </div>
+
+                <div class="players-list">
+                    <h3>Players in Game:</h3>
+                    <div id="players-container-join">
+                        <p style="opacity: 0.7;">Loading players...</p>
+                    </div>
+                </div>
+
+                <div class="status waiting">
+                    Waiting for host to start the game...
+                </div>
+
+                <button id="leave-game-btn" class="secondary-btn">Leave Game</button>
+            </div>
+        </div>
+
+        <div id="status-message" class="status hidden"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        // Screen elements
+        const homeScreen = document.getElementById('home-screen');
+        const hostFlow = document.getElementById('host-flow');
+        const joinFlow = document.getElementById('join-flow');
+        const createScreen = document.getElementById('create-screen');
+        const lobbyScreen = document.getElementById('lobby-screen');
+        const playerLobbyScreen = document.getElementById('player-lobby-screen');
+        
+        // Home buttons
+        const hostGameBtn = document.getElementById('host-game-btn');
+        const joinGameBtn = document.getElementById('join-game-btn');
+        
+        // Host elements
+        const hostNameInput = document.getElementById('host-name-input');
+        const createGameBtn = document.getElementById('create-game-btn');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const newGameBtn = document.getElementById('new-game-btn');
+        const backToHomeBtn = document.getElementById('back-to-home-btn');
+        const gameCodeEl = document.getElementById('game-code');
+        const playersContainer = document.getElementById('players-container');
+        const playerCountEl = document.getElementById('player-count');
+        
+        // Join elements
+        const gameCodeInput = document.getElementById('game-code-input');
+        const playerNameInput = document.getElementById('player-name-input');
+        const joinGameSubmitBtn = document.getElementById('join-game-submit-btn');
+        const backToHomeFromJoinBtn = document.getElementById('back-to-home-from-join-btn');
+        const leaveGameBtn = document.getElementById('leave-game-btn');
+        const joinedGameCodeEl = document.getElementById('joined-game-code');
+        const playersContainerJoin = document.getElementById('players-container-join');
+        const playerCountJoinEl = document.getElementById('player-count-join');
+        
+        const statusMessage = document.getElementById('status-message');
+
+        let currentGame = null;
+        let isHost = false;
+
+        function showStatus(message, type = 'success') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.classList.remove('hidden');
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 3000);
+        }
+
+        function showScreen(screen) {
+            [homeScreen, hostFlow, joinFlow].forEach(s => s.classList.add('hidden'));
+            screen.classList.remove('hidden');
+        }
+
+        function showSubScreen(subScreen) {
+            [createScreen, lobbyScreen, playerLobbyScreen].forEach(s => s.classList.add('hidden'));
+            subScreen.classList.remove('hidden');
+        }
+
+        function updatePlayersList(players, isJoinFlow = false) {
+            const container = isJoinFlow ? playersContainerJoin : playersContainer;
+            const countEl = isJoinFlow ? playerCountJoinEl : playerCountEl;
+            
+            if (players.length === 0) {
+                container.innerHTML = '<p style="opacity: 0.7;">Waiting for players to join...</p>';
+            } else {
+                container.innerHTML = players.map(player => {
+                    const hostBadge = player.isHost ? ' <span style="opacity: 0.7; font-size: 0.9em;">👑 Host</span>' : '';
+                    return `<div class="player">${player.name}${hostBadge}</div>`;
+                }).join('');
+            }
+            
+            countEl.textContent = players.length;
+            if (!isJoinFlow) {
+                startGameBtn.disabled = players.length < 2;
+            }
+        }
+
+        // Home screen navigation
+        hostGameBtn.addEventListener('click', () => {
+            isHost = true;
+            showScreen(hostFlow);
+            showSubScreen(createScreen);
+        });
+
+        joinGameBtn.addEventListener('click', () => {
+            isHost = false;
+            showScreen(joinFlow);
+        });
+
+        // Back buttons
+        backToHomeBtn.addEventListener('click', () => {
+            showScreen(homeScreen);
+            hostNameInput.value = '';
+            currentGame = null;
+        });
+
+        backToHomeFromJoinBtn.addEventListener('click', () => {
+            showScreen(homeScreen);
+            gameCodeInput.value = '';
+            playerNameInput.value = '';
+        });
+
+        // Add keyboard support for host name input
+        hostNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                createGame();
+            }
+        });
+
+        // Host game creation
+        function createGame() {
+            const hostName = hostNameInput.value.trim();
+
+            if (!hostName || hostName.length < 1) {
+                showStatus('Please enter your name', 'error');
+                return;
+            }
+
+            createGameBtn.disabled = true;
+            createGameBtn.textContent = 'Creating...';
+
+            socket.emit('create-game', { hostName }, (response) => {
+                createGameBtn.disabled = false;
+                createGameBtn.textContent = 'Create Game';
+
+                if (response.success) {
+                    currentGame = response.game;
+                    gameCodeEl.textContent = response.game.code;
+                    showSubScreen(lobbyScreen);
+                    updatePlayersList(response.game.players);
+                    showStatus('Game created successfully!');
+                } else {
+                    showStatus('Failed to create game', 'error');
+                }
+            });
+        }
+
+        createGameBtn.addEventListener('click', createGame);
+
+        newGameBtn.addEventListener('click', () => {
+            showSubScreen(createScreen);
+            hostNameInput.value = '';
+            currentGame = null;
+        });
+
+        startGameBtn.addEventListener('click', () => {
+            showStatus('Game starting feature coming soon!', 'waiting');
+        });
+
+        // Join game functionality
+        gameCodeInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
+        });
+
+        [gameCodeInput, playerNameInput].forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    joinGame();
+                }
+            });
+        });
+
+        function joinGame() {
+            const gameCode = gameCodeInput.value.trim();
+            const playerName = playerNameInput.value.trim();
+
+            if (!gameCode || gameCode.length < 3) {
+                showStatus('Please enter a valid game code', 'error');
+                return;
+            }
+
+            if (!playerName || playerName.length < 1) {
+                showStatus('Please enter your name', 'error');
+                return;
+            }
+
+            joinGameSubmitBtn.disabled = true;
+            joinGameSubmitBtn.textContent = 'Joining...';
+
+            socket.emit('join-game', { gameCode, playerName }, (response) => {
+                joinGameSubmitBtn.disabled = false;
+                joinGameSubmitBtn.textContent = 'Join Game';
+
+                if (response.success) {
+                    currentGame = response.game;
+                    joinedGameCodeEl.textContent = gameCode;
+                    showSubScreen(playerLobbyScreen);
+                    updatePlayersList(response.game.players, true);
+                    showStatus('Successfully joined the game!');
+                } else {
+                    showStatus(response.error, 'error');
+                }
+            });
+        }
+
+        joinGameSubmitBtn.addEventListener('click', joinGame);
+
+        leaveGameBtn.addEventListener('click', () => {
+            socket.disconnect();
+            socket.connect();
+            showScreen(homeScreen);
+            gameCodeInput.value = '';
+            playerNameInput.value = '';
+            currentGame = null;
+            showStatus('Left the game', 'waiting');
+        });
+
+        // Socket events
+        socket.on('player-joined', (data) => {
+            if (currentGame) {
+                currentGame.players = data.players;
+                updatePlayersList(data.players, !isHost);
+                showStatus(`${data.playerName} joined the game!`);
+            }
+        });
+
+        socket.on('player-left', (data) => {
+            if (currentGame) {
+                currentGame.players = data.players;
+                updatePlayersList(data.players, !isHost);
+                showStatus('A player left the game', 'waiting');
+            }
+        });
+
+        socket.on('disconnect', () => {
+            if (currentGame && !isHost) {
+                showStatus('Connection lost. Please rejoin.', 'error');
+                setTimeout(() => {
+                    showScreen(homeScreen);
+                    currentGame = null;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
