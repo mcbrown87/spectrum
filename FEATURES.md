@@ -39,19 +39,37 @@ Spectrum is a multiplayer party game inspired by Jackbox Games, where players us
 - **Input Validation**: Clear error messages and form validation throughout
 - **Smart Game Logic**: Start game button enables only when minimum players (2+) are present
 
+### Gameplay Features
+- **Multi-Round Structure**: Complete games with 2 engaging ranking rounds
+- **Interactive Ranking**: Drag-and-drop interface for ranking other players on various spectrums
+- **Consensus Scoring**: Points awarded based on how closely your rankings match the group consensus
+- **Real-Time Results**: Instant calculation and display of round results and cumulative scores
+- **Engaging Prompts**: Built-in prompts like "Rank by height" and "Most likely to become famous"
+
+### Game Flow
+- **Round-Based Play**: Each game consists of multiple rounds with different ranking prompts
+- **Ranking Phase**: Players privately rank all other players based on the given prompt
+- **Results Phase**: Group consensus revealed with individual and total scores displayed
+- **Competitive Scoring**: Players earn points for matching the group's collective judgment
+- **Final Results**: Complete game summary with final standings and celebration
+
 ## 🚀 Getting Started
 
 1. **Visit**: Go to the app homepage - no need to choose host or player URLs
 2. **Choose Mode**: Click "Host Game" to create a new session or "Join Game" to enter an existing one
 3. **Enter Details**: Hosts and players both enter their names for game participation
-4. **Start Playing**: Once 2+ players are connected, the host can begin the game session
+4. **Start Playing**: Once 2+ players join, the host begins the first ranking round
+5. **Rank Players**: Use drag-and-drop to rank other players based on the given prompt
+6. **View Results**: See consensus rankings, round scores, and cumulative totals
+7. **Continue**: Complete all rounds to see final results and winners
 
 ## 🎯 Coming Soon
 
-- **Ranking Rounds**: Players will rank each other on fun personality spectrums
-- **Superlative Categories**: High school yearbook-style categories like "Most Likely to Become Famous"
-- **Results & Scoring**: See how everyone ranked each other with entertaining reveals
+- **Expanded Prompt Library**: More diverse ranking categories and personality spectrums
 - **Custom Prompts**: Create your own ranking categories for personalized games
+- **Advanced Scoring**: Different point systems and bonus categories
+- **Game History**: Save and review past game results
+- **Team Modes**: Collaborative ranking and group challenges
 
 ---
 

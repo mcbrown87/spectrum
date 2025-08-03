@@ -51,6 +51,95 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('start-game', ({ gameCode }, callback) => {
+        const result = gameManager.startGame(gameCode);
+        
+        if (result.success) {
+            // Notify all players that the game is starting
+            io.to(gameCode).emit('game-started', {
+                currentRound: result.game.currentRound,
+                prompt: result.game.rounds[0].prompt,
+                players: result.game.players.map(p => p.name)
+            });
+            callback({ success: true });
+            console.log(`Game started: ${gameCode}`);
+        } else {
+            callback({ success: false, error: result.error });
+        }
+    });
+
+    socket.on('submit-ranking', ({ gameCode, ranking }, callback) => {
+        const result = gameManager.submitRanking(gameCode, socket.id, ranking);
+        
+        if (result.success) {
+            // Notify all players of submission progress
+            socket.to(gameCode).emit('ranking-submitted', {
+                submittedCount: result.submittedCount,
+                totalPlayers: result.totalPlayers
+            });
+            
+            callback({ success: true });
+            
+            // If all players have submitted, calculate results
+            if (result.allSubmitted) {
+                const resultsData = gameManager.calculateRoundResults(gameCode);
+                if (resultsData.success) {
+                    // Convert Maps to Objects for JSON serialization
+                    const roundScores = {};
+                    const totalScores = {};
+                    
+                    resultsData.roundScores.forEach((score, playerId) => {
+                        const player = gameManager.getGame(gameCode).players.find(p => p.id === playerId);
+                        if (player) roundScores[player.name] = score;
+                    });
+                    
+                    resultsData.totalScores.forEach((score, playerId) => {
+                        const player = gameManager.getGame(gameCode).players.find(p => p.id === playerId);
+                        if (player) totalScores[player.name] = score;
+                    });
+                    
+                    io.to(gameCode).emit('round-results', {
+                        consensusRanking: resultsData.consensusRanking,
+                        roundScores,
+                        totalScores,
+                        currentRound: gameManager.getGame(gameCode).currentRound
+                    });
+                }
+            }
+            
+            console.log(`Ranking submitted by ${socket.id} for game ${gameCode}`);
+        } else {
+            callback({ success: false, error: result.error });
+        }
+    });
+
+    socket.on('next-round', ({ gameCode }, callback) => {
+        const result = gameManager.advanceToNextRound(gameCode);
+        
+        if (result.success) {
+            if (result.gameFinished) {
+                // Convert final scores Map to Object
+                const finalScores = {};
+                result.finalScores.forEach((score, playerId) => {
+                    const player = gameManager.getGame(gameCode).players.find(p => p.id === playerId);
+                    if (player) finalScores[player.name] = score;
+                });
+                
+                io.to(gameCode).emit('game-finished', { finalScores });
+                console.log(`Game finished: ${gameCode}`);
+            } else {
+                io.to(gameCode).emit('new-round', {
+                    roundNumber: result.newRound,
+                    prompt: result.prompt
+                });
+                console.log(`Advanced to round ${result.newRound} in game ${gameCode}`);
+            }
+            callback({ success: true, gameFinished: result.gameFinished });
+        } else {
+            callback({ success: false, error: result.error });
+        }
+    });
+
     socket.on('disconnect', () => {
         const result = gameManager.handleDisconnect(socket.id);
         if (result.gameCode) {

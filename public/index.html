@@ -125,6 +125,74 @@
             </div>
         </div>
 
+        <!-- Game Screens -->
+        <div id="game-screen" class="hidden">
+            <!-- Ranking Phase -->
+            <div id="ranking-screen" class="hidden">
+                <h2>Round <span id="current-round-number">1</span></h2>
+                <div class="prompt-display">
+                    <p id="current-prompt">Rank players by height (tallest to shortest)</p>
+                </div>
+                
+                <div class="ranking-interface">
+                    <h3>Drag to rank all players (including yourself):</h3>
+                    <div id="ranking-list" class="ranking-list">
+                        <!-- Players will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="submission-status">
+                    <p id="submission-progress">0 of 0 players have submitted</p>
+                </div>
+                
+                <button id="submit-ranking-btn" disabled>Submit Ranking</button>
+            </div>
+
+            <!-- Results Phase -->
+            <div id="results-screen" class="hidden">
+                <h2>Round <span id="results-round-number">1</span> Results</h2>
+                
+                <div class="consensus-ranking">
+                    <h3>Group Consensus:</h3>
+                    <div id="consensus-display" class="consensus-list">
+                        <!-- Consensus ranking will be shown here -->
+                    </div>
+                </div>
+                
+                <div class="round-scores">
+                    <h3>Round Scores:</h3>
+                    <div id="round-scores-display" class="scores-list">
+                        <!-- Round scores will be shown here -->
+                    </div>
+                </div>
+                
+                <div class="total-scores">
+                    <h3>Total Scores:</h3>
+                    <div id="total-scores-display" class="scores-list">
+                        <!-- Total scores will be shown here -->
+                    </div>
+                </div>
+                
+                <button id="next-round-btn" class="hidden">Next Round</button>
+                <button id="view-final-results-btn" class="hidden">View Final Results</button>
+            </div>
+
+            <!-- Final Results Screen -->
+            <div id="final-results-screen" class="hidden">
+                <h2>🎉 Game Complete!</h2>
+                
+                <div class="final-scores">
+                    <h3>Final Scores:</h3>
+                    <div id="final-scores-display" class="scores-list">
+                        <!-- Final scores will be shown here -->
+                    </div>
+                </div>
+                
+                <button id="play-again-btn">Play Again</button>
+                <button id="back-to-home-final-btn" class="secondary-btn">Back to Home</button>
+            </div>
+        </div>
+
         <div id="status-message" class="status hidden"></div>
     </div>
 
@@ -166,8 +234,32 @@
         
         const statusMessage = document.getElementById('status-message');
 
+        // Game screen elements
+        const gameScreen = document.getElementById('game-screen');
+        const rankingScreen = document.getElementById('ranking-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const finalResultsScreen = document.getElementById('final-results-screen');
+        
+        const currentRoundNumber = document.getElementById('current-round-number');
+        const currentPrompt = document.getElementById('current-prompt');
+        const rankingList = document.getElementById('ranking-list');
+        const submissionProgress = document.getElementById('submission-progress');
+        const submitRankingBtn = document.getElementById('submit-ranking-btn');
+        
+        const resultsRoundNumber = document.getElementById('results-round-number');
+        const consensusDisplay = document.getElementById('consensus-display');
+        const roundScoresDisplay = document.getElementById('round-scores-display');
+        const totalScoresDisplay = document.getElementById('total-scores-display');
+        const nextRoundBtn = document.getElementById('next-round-btn');
+        const viewFinalResultsBtn = document.getElementById('view-final-results-btn');
+        
+        const finalScoresDisplay = document.getElementById('final-scores-display');
+        const playAgainBtn = document.getElementById('play-again-btn');
+        const backToHomeFinalBtn = document.getElementById('back-to-home-final-btn');
+
         let currentGame = null;
         let isHost = false;
+        let currentRanking = [];
 
         function showStatus(message, type = 'success') {
             statusMessage.textContent = message;
@@ -179,13 +271,18 @@
         }
 
         function showScreen(screen) {
-            [homeScreen, hostFlow, joinFlow].forEach(s => s.classList.add('hidden'));
+            [homeScreen, hostFlow, joinFlow, gameScreen].forEach(s => s.classList.add('hidden'));
             screen.classList.remove('hidden');
         }
 
         function showSubScreen(subScreen) {
             [createScreen, lobbyScreen, playerLobbyScreen].forEach(s => s.classList.add('hidden'));
             subScreen.classList.remove('hidden');
+        }
+
+        function showGameScreen(gameSubScreen) {
+            [rankingScreen, resultsScreen, finalResultsScreen].forEach(s => s.classList.add('hidden'));
+            gameSubScreen.classList.remove('hidden');
         }
 
         function updatePlayersList(players, isJoinFlow = false) {
@@ -276,7 +373,24 @@
         });
 
         startGameBtn.addEventListener('click', () => {
-            showStatus('Game starting feature coming soon!', 'waiting');
+            if (!currentGame || !currentGame.code) {
+                showStatus('No game found', 'error');
+                return;
+            }
+
+            startGameBtn.disabled = true;
+            startGameBtn.textContent = 'Starting...';
+
+            socket.emit('start-game', { gameCode: currentGame.code }, (response) => {
+                startGameBtn.disabled = false;
+                startGameBtn.textContent = 'Start Game';
+
+                if (response.success) {
+                    showStatus('Game started!', 'success');
+                } else {
+                    showStatus(response.error || 'Failed to start game', 'error');
+                }
+            });
         });
 
         // Join game functionality
@@ -362,6 +476,208 @@
                     currentGame = null;
                 }, 2000);
             }
+        });
+
+        // Game flow socket events
+        socket.on('game-started', (data) => {
+            currentRoundNumber.textContent = data.currentRound;
+            currentPrompt.textContent = data.prompt;
+            
+            // Initialize ranking list with all players including current player
+            createRankingInterface(data.players);
+            showScreen(gameScreen);
+            showGameScreen(rankingScreen);
+            showStatus('Round started! Rank the players.', 'success');
+        });
+
+        socket.on('ranking-submitted', (data) => {
+            submissionProgress.textContent = `${data.submittedCount} of ${data.totalPlayers} players have submitted`;
+        });
+
+        socket.on('round-results', (data) => {
+            resultsRoundNumber.textContent = data.currentRound;
+            
+            // Show consensus ranking
+            consensusDisplay.innerHTML = data.consensusRanking.map((name, index) => 
+                `<div class="consensus-item">
+                    <span class="consensus-position">${index + 1}.</span>
+                    <span>${name}</span>
+                </div>`
+            ).join('');
+
+            // Show round scores
+            const roundScoreEntries = Object.entries(data.roundScores).sort((a, b) => b[1] - a[1]);
+            roundScoresDisplay.innerHTML = roundScoreEntries.map(([name, score]) =>
+                `<div class="score-item">
+                    <span>${name}</span>
+                    <span class="score-value">+${score}</span>
+                </div>`
+            ).join('');
+
+            // Show total scores
+            const totalScoreEntries = Object.entries(data.totalScores).sort((a, b) => b[1] - a[1]);
+            totalScoresDisplay.innerHTML = totalScoreEntries.map(([name, score]) =>
+                `<div class="score-item">
+                    <span>${name}</span>
+                    <span class="score-value">${score}</span>
+                </div>`
+            ).join('');
+
+            // Show appropriate button for host
+            if (isHost) {
+                nextRoundBtn.classList.remove('hidden');
+                viewFinalResultsBtn.classList.add('hidden');
+            }
+
+            showGameScreen(resultsScreen);
+            showStatus('Round complete! See the results.', 'success');
+        });
+
+        socket.on('new-round', (data) => {
+            currentRoundNumber.textContent = data.roundNumber;
+            currentPrompt.textContent = data.prompt;
+            
+            // Reset ranking interface for new round with all players
+            const allPlayerNames = currentGame.players.map(p => p.name);
+            
+            createRankingInterface(allPlayerNames);
+            showGameScreen(rankingScreen);
+            showStatus(`Round ${data.roundNumber} started!`, 'success');
+        });
+
+        socket.on('game-finished', (data) => {
+            // Show final scores
+            const finalScoreEntries = Object.entries(data.finalScores).sort((a, b) => b[1] - a[1]);
+            finalScoresDisplay.innerHTML = finalScoreEntries.map(([name, score]) =>
+                `<div class="score-item">
+                    <span>${name}</span>
+                    <span class="score-value">${score}</span>
+                </div>`
+            ).join('');
+
+            showGameScreen(finalResultsScreen);
+            showStatus('Game complete! 🎉', 'success');
+        });
+
+        // Game interaction functions
+        function createRankingInterface(playerNames) {
+            currentRanking = [...playerNames]; // Initialize with original order
+            renderRankingList();
+        }
+
+        function renderRankingList() {
+            rankingList.innerHTML = currentRanking.map((name, index) =>
+                `<div class="ranking-item" draggable="true" data-player="${name}">
+                    <span class="ranking-position">${index + 1}</span>
+                    <span>${name}</span>
+                </div>`
+            ).join('');
+
+            // Add drag and drop functionality
+            addDragAndDropHandlers();
+            
+            // Enable submit button when ranking is modified
+            submitRankingBtn.disabled = false;
+        }
+
+        function addDragAndDropHandlers() {
+            const items = rankingList.querySelectorAll('.ranking-item');
+            
+            items.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('drop', handleDrop);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+        }
+
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.outerHTML);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            
+            if (this !== draggedElement) {
+                const draggedPlayer = draggedElement.dataset.player;
+                const targetPlayer = this.dataset.player;
+                
+                const draggedIndex = currentRanking.indexOf(draggedPlayer);
+                const targetIndex = currentRanking.indexOf(targetPlayer);
+                
+                // Remove dragged item and insert at new position
+                currentRanking.splice(draggedIndex, 1);
+                currentRanking.splice(targetIndex, 0, draggedPlayer);
+                
+                renderRankingList();
+            }
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            draggedElement = null;
+        }
+
+        // Game button event handlers
+        submitRankingBtn.addEventListener('click', () => {
+            if (!currentGame || currentRanking.length === 0) {
+                showStatus('No ranking to submit', 'error');
+                return;
+            }
+
+            submitRankingBtn.disabled = true;
+            submitRankingBtn.textContent = 'Submitting...';
+
+            socket.emit('submit-ranking', { 
+                gameCode: currentGame.code, 
+                ranking: currentRanking 
+            }, (response) => {
+                if (response.success) {
+                    submitRankingBtn.textContent = 'Submitted ✓';
+                    showStatus('Ranking submitted! Waiting for other players...', 'success');
+                } else {
+                    submitRankingBtn.disabled = false;
+                    submitRankingBtn.textContent = 'Submit Ranking';
+                    showStatus(response.error || 'Failed to submit ranking', 'error');
+                }
+            });
+        });
+
+        nextRoundBtn.addEventListener('click', () => {
+            if (!currentGame) return;
+
+            nextRoundBtn.disabled = true;
+            socket.emit('next-round', { gameCode: currentGame.code }, (response) => {
+                nextRoundBtn.disabled = false;
+                if (!response.success) {
+                    showStatus(response.error || 'Failed to advance round', 'error');
+                }
+                if (response.gameFinished) {
+                    nextRoundBtn.classList.add('hidden');
+                }
+            });
+        });
+
+        playAgainBtn.addEventListener('click', () => {
+            showScreen(homeScreen);
+            currentGame = null;
+            isHost = false;
+        });
+
+        backToHomeFinalBtn.addEventListener('click', () => {
+            showScreen(homeScreen);
+            currentGame = null;
+            isHost = false;
         });
     </script>
 </body>
