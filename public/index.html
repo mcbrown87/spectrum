@@ -260,6 +260,7 @@
         let currentGame = null;
         let isHost = false;
         let currentRanking = [];
+        let originalRanking = [];
 
         function showStatus(message, type = 'success') {
             statusMessage.textContent = message;
@@ -562,6 +563,7 @@
         // Game interaction functions
         function createRankingInterface(playerNames) {
             currentRanking = [...playerNames]; // Initialize with original order
+            originalRanking = [...playerNames]; // Store original order for comparison
             renderRankingList();
         }
 
@@ -576,8 +578,35 @@
             // Add drag and drop functionality
             addDragAndDropHandlers();
             
-            // Enable submit button when ranking is modified
+            // Update visual feedback based on changes
+            updateVisualFeedback();
+        }
+        
+        function updateVisualFeedback() {
+            const items = rankingList.querySelectorAll('.ranking-item');
+            const hasChanges = JSON.stringify(currentRanking) !== JSON.stringify(originalRanking);
+            
+            // Update submit button state
             submitRankingBtn.disabled = false;
+            if (hasChanges) {
+                submitRankingBtn.classList.add('has-changes');
+                submitRankingBtn.textContent = 'Submit Ranking (Changes Made)';
+            } else {
+                submitRankingBtn.classList.remove('has-changes');
+                submitRankingBtn.textContent = 'Submit Ranking';
+            }
+            
+            // Mark items that have moved from their original position
+            items.forEach((item, currentIndex) => {
+                const playerName = item.dataset.player;
+                const originalIndex = originalRanking.indexOf(playerName);
+                
+                if (currentIndex !== originalIndex) {
+                    item.classList.add('modified');
+                } else {
+                    item.classList.remove('modified');
+                }
+            });
         }
 
         function addDragAndDropHandlers() {
@@ -596,6 +625,7 @@
         function handleDragStart(e) {
             draggedElement = this;
             this.classList.add('dragging');
+            rankingList.classList.add('drag-active');
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('text/html', this.outerHTML);
         }
@@ -620,11 +650,13 @@
                 currentRanking.splice(targetIndex, 0, draggedPlayer);
                 
                 renderRankingList();
+                showStatus('Ranking updated! Don\'t forget to submit.', 'waiting');
             }
         }
 
         function handleDragEnd(e) {
             this.classList.remove('dragging');
+            rankingList.classList.remove('drag-active');
             draggedElement = null;
         }
 
@@ -644,10 +676,13 @@
             }, (response) => {
                 if (response.success) {
                     submitRankingBtn.textContent = 'Submitted ✓';
+                    submitRankingBtn.classList.remove('has-changes');
+                    submitRankingBtn.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
                     showStatus('Ranking submitted! Waiting for other players...', 'success');
                 } else {
                     submitRankingBtn.disabled = false;
                     submitRankingBtn.textContent = 'Submit Ranking';
+                    submitRankingBtn.classList.remove('has-changes');
                     showStatus(response.error || 'Failed to submit ranking', 'error');
                 }
             });
