@@ -650,6 +650,19 @@
                 currentRanking.splice(targetIndex, 0, draggedPlayer);
                 
                 renderRankingList();
+                
+                // Add move animation to the moved item
+                const movedItem = rankingList.querySelector(`[data-player="${draggedPlayer}"]`);
+                if (movedItem) {
+                    movedItem.classList.add('just-moved');
+                    // Remove animation class after animation completes
+                    setTimeout(() => {
+                        if (movedItem.classList) {
+                            movedItem.classList.remove('just-moved');
+                        }
+                    }, 2500);
+                }
+                
                 showStatus('Ranking updated! Don\'t forget to submit.', 'waiting');
             }
         }

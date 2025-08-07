@@ -338,6 +338,35 @@ button.has-changes:hover {
     50% { transform: scale(1.1); opacity: 0.8; }
 }
 
+.ranking-item.just-moved {
+    animation: item-moved 2.5s ease-out;
+}
+
+@keyframes item-moved {
+    0% {
+        transform: scale(1.1);
+        background: linear-gradient(45deg, rgba(46, 204, 113, 0.8), rgba(52, 152, 219, 0.8));
+        border-color: rgba(46, 204, 113, 0.9);
+        box-shadow: 0 0 25px rgba(46, 204, 113, 0.6);
+    }
+    15% {
+        transform: scale(1.05);
+        background: linear-gradient(45deg, rgba(46, 204, 113, 0.6), rgba(52, 152, 219, 0.6));
+        box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+    }
+    30% {
+        transform: scale(1.02);
+        background: linear-gradient(45deg, rgba(46, 204, 113, 0.4), rgba(52, 152, 219, 0.4));
+        box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        background: linear-gradient(45deg, rgba(255, 193, 7, 0.3), rgba(255, 255, 255, 0.2));
+        border-color: rgba(255, 193, 7, 0.6);
+        box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
+    }
+}
+
 .ranking-position {
     font-weight: bold;
     font-size: 1.2rem;
