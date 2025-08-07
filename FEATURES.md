@@ -12,6 +12,8 @@ Spectrum is a multiplayer party game inspired by Jackbox Games, where players us
 ### Game Session Management
 - **Host Registration**: Hosts enter their name and automatically become the first player in their game
 - **Unique Room Codes**: Instantly generated 6-character codes for easy game joining
+- **Smart Game Sharing**: One-click sharing via text message or copy shareable links
+- **Auto-Join Links**: Click shared links to automatically load game codes and join
 - **Player Joining**: Simple room code entry with name validation and collision prevention
 - **Real-time Lobby**: See all connected players update instantly as they join or leave
 
@@ -62,10 +64,11 @@ Spectrum is a multiplayer party game inspired by Jackbox Games, where players us
 1. **Visit**: Go to the app homepage - no need to choose host or player URLs
 2. **Choose Mode**: Click "Host Game" to create a new session or "Join Game" to enter an existing one
 3. **Enter Details**: Hosts and players both enter their names for game participation
-4. **Start Playing**: Once 2+ players join, the host begins the first ranking round
-5. **Rank Players**: Use drag-and-drop to rank other players based on the given prompt
-6. **View Results**: See consensus rankings, round scores, and cumulative totals
-7. **Continue**: Complete all rounds to see final results and winners
+4. **Invite Friends**: Hosts can share the game via text message or copy invite links for easy joining
+5. **Start Playing**: Once 2+ players join, the host begins the first ranking round
+6. **Rank Players**: Use drag-and-drop to rank other players based on the given prompt
+7. **View Results**: See consensus rankings, round scores, and cumulative totals
+8. **Continue**: Complete all rounds to see final results and winners
 
 ## 🎯 Coming Soon
 
