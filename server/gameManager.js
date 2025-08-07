@@ -1,7 +1,10 @@
+const PromptManager = require('./promptManager');
+
 class GameManager {
     constructor() {
         this.games = new Map();
         this.playerToGame = new Map();
+        this.promptManager = new PromptManager();
     }
 
     generateGameCode() {
@@ -117,15 +120,15 @@ class GameManager {
         game.currentRound = 1;
         game.roundPhase = 'ranking';
         
-        // Initialize first round
-        const prompts = [
-            "Rank players by height (tallest to shortest)",
-            "Rank players by how likely they are to become famous"
-        ];
+        // Get prompts for the entire game
+        const gamePrompts = this.promptManager.getPromptsForGame(game.totalRounds);
+        game.gamePrompts = gamePrompts; // Store prompts for the entire game
         
+        // Initialize first round
         game.rounds.push({
             roundNumber: 1,
-            prompt: prompts[0],
+            prompt: gamePrompts[0]?.text || "Rank players by height (tallest to shortest)",
+            promptId: gamePrompts[0]?.id || "height",
             rankings: new Map(), // playerId -> ranking array
             submitted: new Set() // playerIds who have submitted
         });
@@ -220,19 +223,19 @@ class GameManager {
         game.currentRound++;
         game.roundPhase = 'ranking';
 
-        const prompts = [
-            "Rank players by height (tallest to shortest)",
-            "Rank players by how likely they are to become famous"
-        ];
+        // Get the prompt for this round from the game's prompt collection
+        const currentPrompt = game.gamePrompts[game.currentRound - 1];
+        const promptText = currentPrompt?.text || `Round ${game.currentRound} prompt`;
 
         game.rounds.push({
             roundNumber: game.currentRound,
-            prompt: prompts[game.currentRound - 1],
+            prompt: promptText,
+            promptId: currentPrompt?.id || `round_${game.currentRound}`,
             rankings: new Map(),
             submitted: new Set()
         });
 
-        return { success: true, newRound: game.currentRound, prompt: prompts[game.currentRound - 1] };
+        return { success: true, newRound: game.currentRound, prompt: promptText };
     }
 
     calculateConsensusRanking(playerRankings, players) {
@@ -289,6 +292,23 @@ class GameManager {
         }
 
         return score;
+    }
+
+    // Prompt management methods
+    getPromptStats() {
+        return this.promptManager.getStats();
+    }
+
+    getPromptCategories() {
+        return this.promptManager.getCategories();
+    }
+
+    getAllPrompts() {
+        return this.promptManager.getAllPrompts();
+    }
+
+    reloadPrompts() {
+        this.promptManager.reload();
     }
 }
 

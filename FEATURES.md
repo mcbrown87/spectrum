@@ -46,7 +46,9 @@ Spectrum is a multiplayer party game inspired by Jackbox Games, where players us
 - **Smart Submit Button**: Dynamic button states with pulsing animation to indicate unsaved changes
 - **Consensus Scoring**: Points awarded based on how closely your rankings match the group consensus
 - **Real-Time Results**: Instant calculation and display of round results and cumulative scores
-- **Engaging Prompts**: Built-in prompts like "Rank by height" and "Most likely to become famous"
+- **Diverse Prompt Library**: 20+ engaging prompts across 6 categories (Physical, Personality, Future Predictions, Skills, Social Scenarios, Humor)
+- **Smart Prompt Selection**: Automatically selects varied prompts for each game with category balancing to ensure diverse gameplay
+- **Extensible Prompt System**: Abstract interface allows easy addition of new prompts and categories
 
 ### Game Flow
 - **Round-Based Play**: Each game consists of multiple rounds with different ranking prompts
@@ -67,8 +69,8 @@ Spectrum is a multiplayer party game inspired by Jackbox Games, where players us
 
 ## 🎯 Coming Soon
 
-- **Expanded Prompt Library**: More diverse ranking categories and personality spectrums
 - **Custom Prompts**: Create your own ranking categories for personalized games
+- **Prompt Filtering**: Choose specific categories or themes for your game session
 - **Advanced Scoring**: Different point systems and bonus categories
 - **Game History**: Save and review past game results
 - **Team Modes**: Collaborative ranking and group challenges

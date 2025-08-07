@@ -1,0 +1,150 @@
+{
+  "categories": {
+    "physical": {
+      "name": "Physical Traits",
+      "description": "Ranking based on physical characteristics"
+    },
+    "personality": {
+      "name": "Personality & Behavior", 
+      "description": "Ranking based on personality traits and behaviors"
+    },
+    "future": {
+      "name": "Future Predictions",
+      "description": "Ranking based on likely future outcomes"
+    },
+    "skills": {
+      "name": "Skills & Abilities",
+      "description": "Ranking based on various skills and talents"
+    },
+    "social": {
+      "name": "Social Scenarios",
+      "description": "Ranking based on social situations and interactions"
+    },
+    "humor": {
+      "name": "Humorous Scenarios",
+      "description": "Ranking based on funny hypothetical situations"
+    }
+  },
+  "prompts": [
+    {
+      "id": "height",
+      "category": "physical",
+      "text": "Rank players by height (tallest to shortest)",
+      "description": "Order players from tallest to shortest based on their physical height"
+    },
+    {
+      "id": "fame_likelihood",
+      "category": "future",
+      "text": "Rank players by how likely they are to become famous",
+      "description": "Who is most likely to achieve fame or celebrity status?"
+    },
+    {
+      "id": "zombie_survival",
+      "category": "humor",
+      "text": "Most likely to survive a zombie apocalypse",
+      "description": "Who would last longest in a zombie outbreak scenario?"
+    },
+    {
+      "id": "billionaire",
+      "category": "future",
+      "text": "Most likely to become a billionaire",
+      "description": "Who has the highest chance of accumulating massive wealth?"
+    },
+    {
+      "id": "cooking_skills",
+      "category": "skills",
+      "text": "Best cooking skills (best to worst chef)",
+      "description": "Rank players by their culinary abilities and cooking talent"
+    },
+    {
+      "id": "party_energy",
+      "category": "social",
+      "text": "Brings the most energy to a party",
+      "description": "Who gets everyone excited and keeps the party going?"
+    },
+    {
+      "id": "adventure_seeker",
+      "category": "personality",
+      "text": "Most adventurous and willing to try new things",
+      "description": "Who is most likely to say yes to spontaneous adventures?"
+    },
+    {
+      "id": "netflix_binge",
+      "category": "humor",
+      "text": "Most likely to binge-watch an entire Netflix series in one day",
+      "description": "Who has the dedication to marathon through TV shows?"
+    },
+    {
+      "id": "fashion_sense",
+      "category": "skills",
+      "text": "Best fashion sense and style",
+      "description": "Who consistently looks the most put-together and stylish?"
+    },
+    {
+      "id": "morning_person",
+      "category": "personality",
+      "text": "Biggest morning person (loves waking up early)",
+      "description": "Who is most energetic and happy in the early hours?"
+    },
+    {
+      "id": "procrastination",
+      "category": "personality",
+      "text": "Most likely to procrastinate until the last minute",
+      "description": "Who consistently leaves things until the deadline approaches?"
+    },
+    {
+      "id": "karaoke_confidence",
+      "category": "social",
+      "text": "Most confident at karaoke night",
+      "description": "Who takes the mic first and performs with the most enthusiasm?"
+    },
+    {
+      "id": "tech_savvy",
+      "category": "skills",
+      "text": "Most tech-savvy and good with gadgets",
+      "description": "Who do you call when your devices aren't working?"
+    },
+    {
+      "id": "plant_parent",
+      "category": "skills",
+      "text": "Best at keeping plants alive",
+      "description": "Who has the greenest thumb and nurturing abilities?"
+    },
+    {
+      "id": "road_trip_navigator",
+      "category": "skills",
+      "text": "Best road trip navigator and planner",
+      "description": "Who would you trust to plan and guide a cross-country adventure?"
+    },
+    {
+      "id": "social_media_famous",
+      "category": "future",
+      "text": "Most likely to go viral on social media",
+      "description": "Who has the content creation skills to become internet famous?"
+    },
+    {
+      "id": "memory_champion",
+      "category": "skills",
+      "text": "Best memory and never forgets anything",
+      "description": "Who remembers birthdays, appointments, and random facts?"
+    },
+    {
+      "id": "optimist",
+      "category": "personality",
+      "text": "Most optimistic and positive outlook",
+      "description": "Who always looks on the bright side of situations?"
+    },
+    {
+      "id": "competitive_spirit",
+      "category": "personality",
+      "text": "Most competitive in games and sports",
+      "description": "Who hates losing and always plays to win?"
+    },
+    {
+      "id": "dessert_destroyer",
+      "category": "humor",
+      "text": "Most likely to eat dessert before dinner",
+      "description": "Who has the least self-control around sweets?"
+    }
+  ]
+}
