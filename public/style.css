@@ -519,7 +519,8 @@ button.has-changes:hover {
 
 .score-value {
     font-weight: bold;
-    color: rgba(40, 167, 69, 0.9);
+    color: #4ade80;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .final-scores .score-item:first-child {
