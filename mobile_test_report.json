@@ -1,0 +1,1307 @@
+{
+  "timestamp": "2025-08-08T10:48:19.054Z",
+  "summary": {
+    "totalDevices": 3,
+    "devicesWithIssues": 3,
+    "criticalIssues": [
+      {
+        "device": "iPhone SE",
+        "test": "touchTargetSize",
+        "details": [
+          {
+            "index": 0,
+            "element": "BUTTON.choice-btn",
+            "height": 120,
+            "width": 309,
+            "meets44px": true
+          },
+          {
+            "index": 1,
+            "element": "BUTTON.choice-btn",
+            "height": 120,
+            "width": 309,
+            "meets44px": true
+          },
+          {
+            "index": 2,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 3,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 4,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 5,
+            "element": "BUTTON.share-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 6,
+            "element": "BUTTON.share-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 7,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 8,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 9,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 10,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 11,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 12,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 13,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 14,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 15,
+            "element": "BUTTON.hidden",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 16,
+            "element": "BUTTON.hidden",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 17,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 18,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          }
+        ]
+      },
+      {
+        "device": "Standard Mobile",
+        "test": "touchTargetSize",
+        "details": [
+          {
+            "index": 0,
+            "element": "BUTTON.choice-btn",
+            "height": 120,
+            "width": 348,
+            "meets44px": true
+          },
+          {
+            "index": 1,
+            "element": "BUTTON.choice-btn",
+            "height": 120,
+            "width": 348,
+            "meets44px": true
+          },
+          {
+            "index": 2,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 3,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 4,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 5,
+            "element": "BUTTON.share-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 6,
+            "element": "BUTTON.share-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 7,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 8,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 9,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 10,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 11,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 12,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 13,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 14,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 15,
+            "element": "BUTTON.hidden",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 16,
+            "element": "BUTTON.hidden",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 17,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 18,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          }
+        ]
+      },
+      {
+        "device": "Small Mobile",
+        "test": "touchTargetSize",
+        "details": [
+          {
+            "index": 0,
+            "element": "BUTTON.choice-btn",
+            "height": 120,
+            "width": 294,
+            "meets44px": true
+          },
+          {
+            "index": 1,
+            "element": "BUTTON.choice-btn",
+            "height": 120,
+            "width": 294,
+            "meets44px": true
+          },
+          {
+            "index": 2,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 3,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 4,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 5,
+            "element": "BUTTON.share-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 6,
+            "element": "BUTTON.share-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 7,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 8,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 9,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 10,
+            "element": "INPUT",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 11,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 12,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 13,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 14,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 15,
+            "element": "BUTTON.hidden",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 16,
+            "element": "BUTTON.hidden",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 17,
+            "element": "BUTTON",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          },
+          {
+            "index": 18,
+            "element": "BUTTON.secondary-btn",
+            "height": 0,
+            "width": 0,
+            "meets44px": false
+          }
+        ]
+      }
+    ],
+    "recommendations": [
+      "Increase button and input sizes to meet 44px minimum touch target requirements"
+    ]
+  },
+  "deviceResults": [
+    {
+      "device": "iPhone SE",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "tests": {
+        "screenshot": {
+          "passed": true,
+          "path": "./screenshots/mobile_test_iPhone_SE.png"
+        },
+        "horizontalScrolling": {
+          "passed": true,
+          "details": "Body scroll width: 375px, Viewport: 375px",
+          "issue": null
+        },
+        "touchTargetSize": {
+          "passed": false,
+          "totalTargets": 19,
+          "failedTargets": 17,
+          "details": [
+            {
+              "index": 0,
+              "element": "BUTTON.choice-btn",
+              "height": 120,
+              "width": 309,
+              "meets44px": true
+            },
+            {
+              "index": 1,
+              "element": "BUTTON.choice-btn",
+              "height": 120,
+              "width": 309,
+              "meets44px": true
+            },
+            {
+              "index": 2,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 3,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 4,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 5,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 6,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 7,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 8,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 9,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 10,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 11,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 12,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 13,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 14,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 15,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 16,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 17,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 18,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            }
+          ],
+          "issues": [
+            {
+              "index": 2,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 3,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 4,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 5,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 6,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 7,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 8,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 9,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 10,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 11,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 12,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 13,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 14,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 15,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 16,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 17,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 18,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            }
+          ]
+        },
+        "textReadability": {
+          "passed": true,
+          "totalElements": 47,
+          "issues": []
+        },
+        "mainInteractions": {
+          "passed": true,
+          "details": "Host Game and Join Game buttons work correctly"
+        },
+        "gradientBackground": {
+          "passed": true,
+          "details": "rgba(0, 0, 0, 0) linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%) repeat scroll 0% 0% / auto padding-box border-box"
+        }
+      }
+    },
+    {
+      "device": "Standard Mobile",
+      "viewport": {
+        "width": 414,
+        "height": 896
+      },
+      "tests": {
+        "screenshot": {
+          "passed": true,
+          "path": "./screenshots/mobile_test_Standard_Mobile.png"
+        },
+        "horizontalScrolling": {
+          "passed": true,
+          "details": "Body scroll width: 414px, Viewport: 414px",
+          "issue": null
+        },
+        "touchTargetSize": {
+          "passed": false,
+          "totalTargets": 19,
+          "failedTargets": 17,
+          "details": [
+            {
+              "index": 0,
+              "element": "BUTTON.choice-btn",
+              "height": 120,
+              "width": 348,
+              "meets44px": true
+            },
+            {
+              "index": 1,
+              "element": "BUTTON.choice-btn",
+              "height": 120,
+              "width": 348,
+              "meets44px": true
+            },
+            {
+              "index": 2,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 3,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 4,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 5,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 6,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 7,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 8,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 9,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 10,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 11,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 12,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 13,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 14,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 15,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 16,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 17,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 18,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            }
+          ],
+          "issues": [
+            {
+              "index": 2,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 3,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 4,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 5,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 6,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 7,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 8,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 9,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 10,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 11,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 12,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 13,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 14,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 15,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 16,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 17,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 18,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            }
+          ]
+        },
+        "textReadability": {
+          "passed": true,
+          "totalElements": 47,
+          "issues": []
+        },
+        "mainInteractions": {
+          "passed": true,
+          "details": "Host Game and Join Game buttons work correctly"
+        },
+        "gradientBackground": {
+          "passed": true,
+          "details": "rgba(0, 0, 0, 0) linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%) repeat scroll 0% 0% / auto padding-box border-box"
+        }
+      }
+    },
+    {
+      "device": "Small Mobile",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "tests": {
+        "screenshot": {
+          "passed": true,
+          "path": "./screenshots/mobile_test_Small_Mobile.png"
+        },
+        "horizontalScrolling": {
+          "passed": true,
+          "details": "Body scroll width: 360px, Viewport: 360px",
+          "issue": null
+        },
+        "touchTargetSize": {
+          "passed": false,
+          "totalTargets": 19,
+          "failedTargets": 17,
+          "details": [
+            {
+              "index": 0,
+              "element": "BUTTON.choice-btn",
+              "height": 120,
+              "width": 294,
+              "meets44px": true
+            },
+            {
+              "index": 1,
+              "element": "BUTTON.choice-btn",
+              "height": 120,
+              "width": 294,
+              "meets44px": true
+            },
+            {
+              "index": 2,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 3,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 4,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 5,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 6,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 7,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 8,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 9,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 10,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 11,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 12,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 13,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 14,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 15,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 16,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 17,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 18,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            }
+          ],
+          "issues": [
+            {
+              "index": 2,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 3,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 4,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 5,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 6,
+              "element": "BUTTON.share-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 7,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 8,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 9,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 10,
+              "element": "INPUT",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 11,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 12,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 13,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 14,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 15,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 16,
+              "element": "BUTTON.hidden",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 17,
+              "element": "BUTTON",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            },
+            {
+              "index": 18,
+              "element": "BUTTON.secondary-btn",
+              "height": 0,
+              "width": 0,
+              "meets44px": false
+            }
+          ]
+        },
+        "textReadability": {
+          "passed": true,
+          "totalElements": 47,
+          "issues": []
+        },
+        "mainInteractions": {
+          "passed": true,
+          "details": "Host Game and Join Game buttons work correctly"
+        },
+        "gradientBackground": {
+          "passed": true,
+          "details": "rgba(0, 0, 0, 0) linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%) repeat scroll 0% 0% / auto padding-box border-box"
+        }
+      }
+    }
+  ]
+}

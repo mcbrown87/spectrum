@@ -15,14 +15,12 @@ body {
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     padding: 2rem;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     min-width: 300px;
     text-align: center;
+    width: 100%;
+    max-width: 400px;
 }
 
 h1 {
@@ -40,12 +38,14 @@ h2 {
 .game-code {
     font-size: 3rem;
     font-weight: bold;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 16px;
     margin: 1rem 0;
     letter-spacing: 0.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .input-group {
@@ -57,12 +57,14 @@ input {
     padding: 1rem;
     font-size: 1.2rem;
     border: none;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.15);
     color: white;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
 input::placeholder {
@@ -73,8 +75,9 @@ input::placeholder {
 
 input:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 25px rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
 }
 
 button {
@@ -83,16 +86,17 @@ button {
     border: none;
     padding: 1rem 2rem;
     font-size: 1.2rem;
-    border-radius: 50px;
+    border-radius: 16px;
     cursor: pointer;
     margin: 0.5rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 button:disabled {
@@ -118,19 +122,22 @@ button.has-changes:hover {
 }
 
 .players-list {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
     padding: 1rem;
     margin: 1rem 0;
     min-height: 200px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .player {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     padding: 0.8rem;
     margin: 0.5rem 0;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1.1rem;
+    backdrop-filter: blur(5px);
 }
 
 .status {
@@ -167,22 +174,22 @@ button.has-changes:hover {
 }
 
 .choice-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
     padding: 1.5rem;
-    border-radius: 15px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
     color: white;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .choice-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .choice-icon {
@@ -258,54 +265,111 @@ button.has-changes:hover {
 }
 
 @media (max-width: 768px) {
+    body {
+        padding: 1rem;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+    
     .container {
-        margin: 1rem;
-        padding: 1.5rem;
+        margin: 0;
+        padding: 0;
         min-width: unset;
-        width: calc(100% - 2rem);
+        width: 100%;
+        box-sizing: border-box;
+        max-width: none;
+        background: transparent;
     }
     
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1.2rem;
     }
     
     .game-code {
-        font-size: 2rem;
-        letter-spacing: 0.3rem;
+        font-size: 1.6rem;
+        letter-spacing: 0.2rem;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
     }
     
     input, button {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        padding: 1rem;
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    .choice-buttons {
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .choice-btn {
+        min-height: 60px; /* Larger touch targets for mobile */
+        padding: 1rem;
     }
     
     .choice-icon {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
     }
     
     .choice-title {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .choice-desc {
+        font-size: 0.9rem;
+    }
+    
+    .players-list {
+        max-height: 40vh;
+        overflow-y: auto;
+        margin: 1rem 0;
     }
     
     .share-options {
         flex-direction: column;
         align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
     }
     
     .share-btn {
         width: 100%;
-        max-width: 200px;
+        max-width: 280px;
+        min-height: 44px;
+        padding: 0.8rem 1rem;
+    }
+    
+    .input-group {
+        margin: 1rem 0;
+    }
+    
+    .status {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
     }
 }
 
 /* Game Screens */
 .prompt-display {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     padding: 1.5rem;
     margin: 1rem 0;
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .ranking-interface {
@@ -314,11 +378,13 @@ button.has-changes:hover {
 
 .ranking-list {
     min-height: 300px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     padding: 1rem;
     margin: 1rem 0;
     position: relative;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .ranking-list.drag-active {
@@ -472,17 +538,57 @@ button.has-changes:hover {
 }
 
 @media (max-width: 768px) {
+    .prompt-display {
+        font-size: 1rem;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+    
+    .ranking-interface {
+        margin: 1rem 0;
+    }
+    
+    .ranking-list {
+        min-height: 200px;
+        max-height: 50vh;
+        overflow-y: auto;
+        padding: 0.8rem;
+    }
+    
     .ranking-item {
         padding: 0.8rem;
         font-size: 1rem;
+        margin: 0.4rem 0;
+        min-height: 44px; /* Touch-friendly */
     }
     
     .ranking-position {
         font-size: 1rem;
+        margin-right: 0.8rem;
     }
     
-    .prompt-display {
-        font-size: 1.1rem;
-        padding: 1rem;
+    .submission-status {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+    
+    .consensus-list, .scores-list {
+        max-height: 40vh;
+        overflow-y: auto;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+    
+    .consensus-item, .score-item {
+        padding: 0.8rem;
+        font-size: 1rem;
+        margin: 0.4rem 0;
+        min-height: 40px;
+    }
+    
+    .final-scores {
+        max-height: 50vh;
+        overflow-y: auto;
     }
 }
