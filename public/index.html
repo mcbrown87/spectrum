@@ -144,7 +144,7 @@
                 </div>
                 
                 <div class="ranking-interface">
-                    <h3>Drag to rank all players (including yourself):</h3>
+                    <h3>Rank all players (including yourself):</h3>
                     <div id="ranking-list" class="ranking-list">
                         <!-- Players will be populated here -->
                     </div>
@@ -671,8 +671,10 @@
         function renderRankingList() {
             rankingList.innerHTML = currentRanking.map((name, index) =>
                 `<div class="ranking-item" draggable="true" data-player="${name}">
+                    <button class="ranking-btn up-btn" onclick="movePlayer('${name}', 'up')" ${index === 0 ? 'disabled' : ''}>↑</button>
                     <span class="ranking-position">${index + 1}</span>
-                    <span>${name}</span>
+                    <span class="player-name">${name}</span>
+                    <button class="ranking-btn down-btn" onclick="movePlayer('${name}', 'down')" ${index === currentRanking.length - 1 ? 'disabled' : ''}>↓</button>
                 </div>`
             ).join('');
 
@@ -772,6 +774,35 @@
             this.classList.remove('dragging');
             rankingList.classList.remove('drag-active');
             draggedElement = null;
+        }
+
+        function movePlayer(playerName, direction) {
+            const currentIndex = currentRanking.indexOf(playerName);
+            
+            if (direction === 'up' && currentIndex > 0) {
+                // Move player up (swap with previous player)
+                [currentRanking[currentIndex - 1], currentRanking[currentIndex]] = 
+                [currentRanking[currentIndex], currentRanking[currentIndex - 1]];
+            } else if (direction === 'down' && currentIndex < currentRanking.length - 1) {
+                // Move player down (swap with next player)
+                [currentRanking[currentIndex], currentRanking[currentIndex + 1]] = 
+                [currentRanking[currentIndex + 1], currentRanking[currentIndex]];
+            }
+            
+            renderRankingList();
+            
+            // Add move animation to the moved item
+            const movedItem = rankingList.querySelector(`[data-player="${playerName}"]`);
+            if (movedItem) {
+                movedItem.classList.add('just-moved');
+                setTimeout(() => {
+                    if (movedItem.classList) {
+                        movedItem.classList.remove('just-moved');
+                    }
+                }, 2500);
+            }
+            
+            showStatus('Ranking updated! Don\'t forget to submit.', 'waiting');
         }
 
         // Game button event handlers
