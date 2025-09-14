@@ -33,7 +33,7 @@ class GameManager {
             status: 'waiting',
             createdAt: new Date(),
             currentRound: 0,
-            totalRounds: 2,
+            totalRounds: 6,
             roundPhase: null, // 'ranking', 'results'
             rounds: [],
             rankings: new Map(), // playerId -> rankings array
